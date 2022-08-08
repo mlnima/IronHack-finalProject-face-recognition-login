@@ -13,6 +13,7 @@
 /server-side/public/*
 /server-side/static
 /server-side/static/*
+/server-side/pyScripts/temp/*
 
 .env.local
 .env.development.local

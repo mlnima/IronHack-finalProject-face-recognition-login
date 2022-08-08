@@ -14,7 +14,6 @@ const Style = styled.div`
   .use-profile-image {
     width: 200px;
   }
-
 `
 const Profile = () => {
     const imageElement = useRef<HTMLImageElement>(null);

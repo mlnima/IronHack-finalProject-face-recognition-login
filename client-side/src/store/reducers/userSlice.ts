@@ -85,11 +85,11 @@ export const autoLogin = createAsyncThunk(
     'user/autoLogin',
     async (token: string, thunkAPI) => {
         return await axios.post(`/api/v1/auth/autoLogin`, {token}).then(response => {
-            thunkAPI.dispatch(setAlert({
-                type: 'success',
-                active: true,
-                message: response?.data?.message,
-            }))
+            // thunkAPI.dispatch(setAlert({
+            //     type: 'success',
+            //     active: true,
+            //     message: response?.data?.message,
+            // }))
 
             return {
                 isLogin: true,

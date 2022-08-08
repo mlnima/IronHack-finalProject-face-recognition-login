@@ -3,6 +3,7 @@ import GlobalStyle from "./components/GlobalStyle";
 import MainRouter from "./components/Layout/Main/MainRouter";
 import {useAppDispatch, useAppSelector} from "./store/hooks";
 import {autoLogin} from "./store/reducers/userSlice";
+import Alert from "./components/includes/Alert";
 
 const App = () => {
 
@@ -19,6 +20,7 @@ const App = () => {
         <div className="App left-sidebar-layout">
             <GlobalStyle/>
             <MainRouter/>
+            <Alert/>
         </div>
     );
 }

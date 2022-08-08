@@ -11,33 +11,19 @@ const userUploadImage = async (req, res) => {
     const filePathOriginalSize = directoryPath + 'originalSize_' + file.name;
     fsExtra.ensureDir(directoryPath).then(() => {
 
-        file.mv(filePathOriginalSize, function (err) {
+        file.mv(filePath, function (err) {
             if (err) {
                 console.log(err)
                 res.json({response: 'something is wrong', type: 'error', error: err})
             } else {
-                let imageHeight = req.body.type === 'profile' ? 180 :
-                    req.body.type === 'cover' ? 312 : 720;
 
-                let imageWidth = req.body.type === 'profile' ? 180 :
-                    req.body.type === 'cover' ? 820 : 1280;
+                const imageUrl =  filePath.replace('.', '')
 
-                sharp(filePathOriginalSize).resize(imageWidth, imageHeight).toFile(filePath, (err, info) => {
-                    console.log(filePath)
-                    if (err) {
-                        console.log(err)
-                        res.status(500);
-                    } else {
-                        const imageUrl =  filePath.replace('.', '')
-
-                        UserSchema.findByIdAndUpdate(req.userData._id, {profileImage: imageUrl}).exec().then(() => {
-                            fsExtra.remove(filePathOriginalSize)
-                            res.json({response: 'Uploaded', path: imageUrl})
-                        }).catch(() => {
-                            res.status(500);
-                        })
-
-                    }
+                UserSchema.findByIdAndUpdate(req.userData._id, {profileImage: imageUrl}).exec().then(() => {
+                    fsExtra.remove(filePathOriginalSize)
+                    res.json({response: 'Uploaded', path: imageUrl})
+                }).catch(() => {
+                    res.status(500);
                 })
             }
         });
@@ -50,3 +36,23 @@ const userUploadImage = async (req, res) => {
 }
 
 export default userUploadImage
+
+
+
+// sharp(filePathOriginalSize).resize(imageWidth, imageHeight).toFile(filePath, (err, info) => {
+//     console.log(filePath)
+//     if (err) {
+//         console.log(err)
+//         res.status(500);
+//     } else {
+//         const imageUrl =  filePath.replace('.', '')
+//
+//         UserSchema.findByIdAndUpdate(req.userData._id, {profileImage: imageUrl}).exec().then(() => {
+//             fsExtra.remove(filePathOriginalSize)
+//             res.json({response: 'Uploaded', path: imageUrl})
+//         }).catch(() => {
+//             res.status(500);
+//         })
+//
+//     }
+// })

@@ -31,6 +31,13 @@ export const globalSlice = createSlice({
         setAlert: (state, action: PayloadAction<any>) => {
             state.alert = action.payload;
         },
+        closeAlert: (state, action: PayloadAction<any>) => {
+            state.alert = {
+                active: false,
+                type: '',
+                message: ''
+            }
+        }
     },
     // extraReducers: (builder) => {
     //     builder
@@ -55,7 +62,7 @@ export const globalSlice = createSlice({
     // },
 });
 
-export const {setLoading,setAlert} = globalSlice.actions;
+export const {setLoading,setAlert,closeAlert} = globalSlice.actions;
 
 export const globalReducer = (state: RootState) => state?.global || null;
 
