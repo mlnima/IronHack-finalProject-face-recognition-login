@@ -53,7 +53,9 @@ const loginByFace = async (req, res) => {
                         return message === 'True'
                     });
                     pyShell.end(function (err, code, signal) {
-                        if (err) throw err;
+                        if (err) {
+                            res.status(401).json({message: 'can not verify your image'})
+                        }
                     });
                 })
 
